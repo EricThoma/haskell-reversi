@@ -1,0 +1,4 @@
+#haskell reversi git ignore
+/clutter/*
+
+Reversi
