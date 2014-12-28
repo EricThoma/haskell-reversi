@@ -22,7 +22,7 @@ data GameState = GameState BB BB Bool Int deriving (Show)
 instance Game_tree (GameState) where
     is_terminal (GameState wocc bocc toMove _) = if toMove then genMoves (wocc .|. bocc) wocc bocc == 0
                                                            else genMoves (wocc .|. bocc) bocc wocc == 0
-    node_value (GameState wocc bocc _ _) = eval wocc bocc
+    node_value (GameState wocc bocc toMove _) = if toMove then eval wocc bocc else eval bocc wocc
     children (GameState wocc bocc toMove sq) = 
        let moves = if toMove then genMoves (wocc .|. bocc) wocc bocc
                              else genMoves (wocc .|. bocc) bocc wocc

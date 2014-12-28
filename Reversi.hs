@@ -25,10 +25,11 @@ gameLoop wocc bocc toMove =
   do if toMove then putStrLn "white's move" else putStrLn "black's move"
      let occ = bocc .|. wocc
      printLikeBoard (bbToList wocc bocc)
-     putStrLn "searching..."
-     let (pv, score) = search wocc bocc toMove 12
+     
+     let (pv, score) = search wocc bocc toMove 11
          GameState _ _ _ bestmove = (pv !! 1)
-     if toMove then return () else timeIt $ putStrLn $ "Computer calculates advantage: " ++ (show score)
+     if toMove then return () else do putStrLn "searching..."
+                                      timeIt $ putStrLn $ "Computer calculates advantage: " ++ (show score)
      move <- (if toMove then do putStr "\nReady for input:\n"
                                 input <- getLine
                                 return (parseMove input)
